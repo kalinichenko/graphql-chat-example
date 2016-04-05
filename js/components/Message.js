@@ -49,7 +49,7 @@ export class _Message extends React.Component {
   _saveMessage = (text) => {
     this.setState({isEditing: false});
     Relay.Store.commitUpdate(
-      new ChangeMessageMutation({chat: this.props.chat, text, message: this.props.message})
+      new ChangeMessageMutation({message: this.props.message, text})
     );
   };
 
@@ -104,6 +104,7 @@ export const Message = Relay.createContainer(_Message, {
     message: () => Relay.QL`
       fragment on Message {
         ${RemoveMessageMutation.getFragment('message')},
+        ${ChangeMessageMutation.getFragment('message')},
         text,
         avatar,
         id,
@@ -112,7 +113,6 @@ export const Message = Relay.createContainer(_Message, {
     `,
     chat: () => Relay.QL`
       fragment on Chat {
-        ${ChangeMessageMutation.getFragment('chat')},
         ${RemoveMessageMutation.getFragment('chat')},
         id,
         total,
@@ -123,6 +123,7 @@ export const Message = Relay.createContainer(_Message, {
               text,
               avatar,
               addedAt,
+              ${ChangeMessageMutation.getFragment('message')},
             },
           },
         },

@@ -161,13 +161,13 @@ const changeMessageMutation = mutationWithClientMutationId({
   },
   mutateAndGetPayload: ({id, text}) => {
     const localId = fromGlobalId(id).id;
-    const msg = changeMessage(localId, text);
-    return {msg};
+    const message = changeMessage(localId, text);
+    return message;
   },
   outputFields: {
-    chat: {
-      type: chatType,
-      resolve: () => getChat(),
+    message: {
+      type: messageType,
+      resolve: (message) => message
     },
   },
 });

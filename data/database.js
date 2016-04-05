@@ -83,6 +83,7 @@ export function removeMessage(id) {
 export function changeMessage(id, text) {
   const message = getMessage(id);
   message.text = text;
+  return message;
 }
 
 
