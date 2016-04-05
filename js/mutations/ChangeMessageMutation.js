@@ -32,4 +32,13 @@ export default class ChangeMessageMutation extends Relay.Mutation {
       id: this.props.message.id,
     };
   }
+
+  getOptimisticResponse() {
+    return {
+      message: {
+        text: this.props.text,
+        id: this.props.message.id,
+      },
+    };
+  }
 }
